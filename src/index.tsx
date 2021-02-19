@@ -12,17 +12,20 @@ import "normalize.css";
 import "antd/dist/antd.css";
 import "./styles/main.scss";
 import rootReducer from "./reducers";
-import Login from "./layouts/Login";
+import { Login } from "./pages";
+import { PrivateRoute } from "./components";
 import PrimaryLayout from "./layouts/PrimaryLayout";
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={App} />
-        <Route path="/login" component={Login} />
-        <Route path="/dashboard" component={PrimaryLayout} />
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route path="/" component={PrivateRoute} />
       </Switch>
     </BrowserRouter>
   </Provider>,

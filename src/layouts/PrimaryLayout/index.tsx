@@ -3,13 +3,22 @@ import Header from "../../components/Layout/Header";
 import Sider from "../../components/Layout/Sider";
 import { Layout, BackTop } from "antd";
 import styles from "./index.module.scss";
+import { Route } from "react-router-dom";
+import { Chart, Dashboard, Editor, Post, Request, User } from "src/pages";
 
 const { Content, Footer } = Layout;
 
-interface IPrimaryLayoutProps {}
+interface Location {
+  pathname: string;
+}
+interface IPrimaryLayoutProps {
+  location: Location;
+}
 
 const PrimaryLayout: React.FunctionComponent<IPrimaryLayoutProps> = ({
   children,
+  location,
+  ...rest
 }) => {
   const [collapsed, setCollapsed] = React.useState(false);
 
@@ -20,7 +29,7 @@ const PrimaryLayout: React.FunctionComponent<IPrimaryLayoutProps> = ({
   return (
     <React.Fragment>
       <Layout>
-        <Sider collapsed={collapsed} />
+        <Sider collapsed={collapsed} location={location.pathname} />
         <div
           className={styles.container}
           style={{ paddingTop: 72 }}
@@ -31,9 +40,14 @@ const PrimaryLayout: React.FunctionComponent<IPrimaryLayoutProps> = ({
             className={styles.content}
             style={{ margin: "24px 16px 0", overflow: "initial" }}
           >
-            {children}
+            <Route exact path={["", "/dashboard"]} component={Dashboard} />
+            <Route path="/editor" component={Editor} />
+            <Route path="/post" component={Post} />
+            <Route path="/request" component={Request} />
+            <Route path="/user" component={User} />
+            <Route path="/chart" component={Chart} />
           </Content>
-          {/* <BackTop target={() => document.querySelector("#primaryLayout")} /> */}
+          {/* <BackTop target={() => document.querySelector("#primaryLayout")} />  */}
           <Footer style={{ textAlign: "center" }}>
             Ant Design ©2018 Created by Ant UED
           </Footer>
