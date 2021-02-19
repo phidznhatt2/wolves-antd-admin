@@ -1,19 +1,23 @@
-import * as React from 'react';
+import * as React from "react";
 import { Switch, Route, Redirect, RouteComponentProps } from "react-router-dom";
-
+import PrimaryLayout from "../PrimaryLayout/index";
 interface IAppProps {
+  component: React.ElementType;
 }
 
-
-const App: React.FunctionComponent<IAppProps> = (props) => {
-return <React.Fragment>
-{/* <Switch>
-  <Route path="/login" exact component={Login} />
-  <Route path="/admin" component={AdminPage} />
-</Switch> */}
-<div className="test">
-    Welcome!
-</div>
-</React.Fragment>
-}
-export default App
+const App: React.FunctionComponent<IAppProps> = ({
+  component: Component,
+  ...rest
+}) => {
+  return (
+    <Route
+      {...rest}
+      render={(routeProps) => (
+        <PrimaryLayout>
+          <Component {...routeProps} />
+        </PrimaryLayout>
+      )}
+    />
+  );
+};
+export default App;

@@ -13,6 +13,7 @@ import "antd/dist/antd.css";
 import "./styles/main.scss";
 import rootReducer from "./reducers";
 import Login from "./layouts/Login";
+import PrimaryLayout from "./layouts/PrimaryLayout";
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 ReactDOM.render(
@@ -21,6 +22,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/" exact component={App} />
         <Route path="/login" component={Login} />
+        <Route path="/dashboard" component={PrimaryLayout} />
       </Switch>
     </BrowserRouter>
   </Provider>,
