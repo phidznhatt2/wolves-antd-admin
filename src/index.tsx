@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./layouts/App";
 import reportWebVitals from "./reportWebVitals";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
@@ -15,6 +15,7 @@ import rootReducer from "./reducers";
 import { Login } from "./pages";
 import { PrivateRoute } from "./components";
 import PrimaryLayout from "./layouts/PrimaryLayout";
+import PageNotFound from "./pages/404";
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -22,10 +23,21 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route path="/" component={PrivateRoute} />
+        <Route
+          exact
+          path={[
+            "",
+            "/dashboard",
+            "/editor",
+            "/post",
+            "/request",
+            "/user",
+            "/chart",
+          ]}
+          component={PrivateRoute}
+        />
+        <Route path="/login" component={Login} />
+        <Route component={PageNotFound} />
       </Switch>
     </BrowserRouter>
   </Provider>,
