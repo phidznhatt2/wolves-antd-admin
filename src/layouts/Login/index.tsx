@@ -6,6 +6,21 @@ import Logo from "../../images/login/logo-2.png";
 interface ILoginProps {}
 
 const Login: React.FunctionComponent<ILoginProps> = (props) => {
+
+  const [email,setEmail]=React.useState("");
+  const[password,setPassword]=React.useState("");
+
+  const onChange=(e)=>{
+    let {name,value}=e.target;
+    // console.log(value,name)
+    console.log("test");
+  }
+
+  const submit=(e)=>{
+    e.preventDefault();
+    console.log("test");
+  }
+
   return (
     <React.Fragment>
       <div className="login-wolves">
@@ -25,6 +40,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
                   type="text"
                   name="email"
                   placeholder="Email"
+                  onKeyUp={onChange}
                 />
                 <span className="focus-input" />
                 <span className="symbol-input">
@@ -37,6 +53,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
                   type="password"
                   name="pass"
                   placeholder="Password"
+                  onChange={onChange}
                 />
                 <span className="focus-input" />
                 <span className="symbol-input">
@@ -44,7 +61,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
                 </span>
               </div>
               <div className="container-login-form-btn">
-                <button className="login-form-btn">Login</button>
+                <button onClick={submit} className="login-form-btn">Login</button>
               </div>
               <div className="wrap-login-form-forgot">
                 <span>Forgot </span>
