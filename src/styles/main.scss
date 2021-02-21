@@ -1,0 +1,12 @@
+@import "./helpers/reset";
+@import "./helpers/variable";
+
+
+
+@import "./layouts/login";
+.test{
+ text-align: center;
+ background-color: black;
+ height: 100vh;
+ color: white;
+}
