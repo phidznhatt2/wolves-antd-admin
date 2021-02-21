@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-
+import { categoryReducer } from "./categories";
 
 const rootReducer = combineReducers({
-    
-  });
-  
-  export default rootReducer;
+  categories: categoryReducer,
+});
+
+export type AppState = ReturnType<typeof rootReducer>;
+
+export default rootReducer;

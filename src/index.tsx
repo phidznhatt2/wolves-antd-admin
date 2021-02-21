@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import "normalize.css";
 import "antd/dist/antd.css";
 import "./styles/main.scss";
@@ -17,7 +17,13 @@ import { PrivateRoute } from "./components";
 import PrimaryLayout from "./layouts/PrimaryLayout";
 import PageNotFound from "./pages/404";
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+const composeEnhancers =
+  (window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] as typeof compose) || compose;
+
+export const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <Provider store={store}>
