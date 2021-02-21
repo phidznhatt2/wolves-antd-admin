@@ -48,9 +48,7 @@ const PrimaryLayout: React.FunctionComponent<IPrimaryLayoutProps> = ({
             <Route path="/chart" component={Chart} />
           </Content>
           {/* <BackTop target={() => document.querySelector("#primaryLayout")} />  */}
-          <Footer style={{ textAlign: "center" }}>
-            Ant Design ©2018 Created by Ant UED
-          </Footer>
+          <Footer style={{ textAlign: "center" }}>Ant Design ©2018</Footer>
         </div>
       </Layout>
     </React.Fragment>
