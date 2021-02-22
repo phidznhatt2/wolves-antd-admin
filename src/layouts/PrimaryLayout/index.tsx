@@ -46,7 +46,7 @@ const PrimaryLayout: React.FunctionComponent<IPrimaryLayoutProps> = ({
           <Header collapsed={collapsed} toggle={toggle} {...rest} />
           <Content
             className={styles.content}
-            style={{ margin: "24px 16px 0", overflow: "initial" }}
+            style={{ padding:"0", overflow: "initial" }}
           >
             <Route exact path={["", "/dashboard"]} component={Dashboard} />
             <Route path="/editor" component={Editor} />

@@ -1,11 +1,28 @@
 import React from "react";
 import Tilt from "react-tilt";
-import { MailFilled, LockFilled } from "@ant-design/icons";
+import { Input, Button, Form } from 'antd';
+import { useHistory } from "react-router-dom";
 import Logo from "../../images/login/logo-2.png";
 
-interface ILoginProps {}
+interface ILoginProps { }
 
 const Login: React.FunctionComponent<ILoginProps> = (props) => {
+  const [value, setValue] = React.useState({ email: "", password: "" });
+  const onChange = (e) => {
+    let { name, value } = e.target;
+    setValue(prevState => ({
+      ...prevState, [name]: value
+    }));
+  }
+  let history:any = useHistory();
+  const submit = (e) => {
+    e.preventDefault();
+    if(value.email!=""&&value.password!=""){
+      console.log(value)
+    }
+    // props.startAuthLogin(value,history);
+
+  }
   return (
     <React.Fragment>
       <div className="login-wolves">
@@ -17,42 +34,33 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
             >
               <img className="Tilt-inner" src={Logo} alt="logo" />
             </Tilt>
-            <form className="login-form">
-              <span className="login-form-title">Member Login</span>
-              <div className="wrap-input">
-                <input
-                  className="input"
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                />
-                <span className="focus-input" />
-                <span className="symbol-input">
-                  <MailFilled />
-                </span>
+            <Form className="login-form">
+            <span className="login-form-title">Member Login</span>
+            <div className="wrap-input">
+                 <Form.Item name="email" 
+                 rules={[{ required: true, message: 'Please input your email!' }]}>
+                <Input placeholder="Email" name="email" onChange={onChange} />
+              </Form.Item>
               </div>
               <div className="wrap-input">
-                <input
-                  className="input"
-                  type="password"
-                  name="pass"
-                  placeholder="Password"
-                />
-                <span className="focus-input" />
-                <span className="symbol-input">
-                  <LockFilled />
-                </span>
+                 <Form.Item name="password"   
+                 rules={[{ required: true, message: 'Please input your password!' }]}>
+                <Input.Password placeholder="Password" name="password" onChange={onChange} />
+              </Form.Item>
               </div>
-              <div className="container-login-form-btn">
-                <button className="login-form-btn">Login</button>
-              </div>
+              <Form.Item className="container-login-form-btn"  >
+                <Button onClick={submit} className="login-form-btn" type="primary" htmlType="submit" >
+                  Login
+              </Button>
+              </Form.Item>
               <div className="wrap-login-form-forgot">
                 <span>Forgot </span>
                 <a className="forgot-text" href="true">
                   Username / Password?
                 </a>
               </div>
-            </form>
+              
+            </Form>
           </div>
         </div>
       </div>

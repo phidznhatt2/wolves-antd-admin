@@ -51,7 +51,7 @@
       background: #fff;
       border-radius: 10px;
       overflow: hidden;
-
+      height: 525px;
       display: -webkit-box;
       display: -webkit-flex;
       display: -moz-box;
@@ -59,7 +59,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      padding: 177px 130px 33px 95px;
+      padding: 125px 130px 33px 95px;
 
       .logo-wolves {
         width: 316px;
@@ -83,7 +83,7 @@
 
           width: 100%;
           display: block;
-          padding-bottom: 54px;
+          padding-bottom: 45px;
         }
 
         .wrap-input {
@@ -152,7 +152,8 @@
         }
 
         .container-login-form-btn {
-          width: 100%;
+          margin: 0 auto;
+          width: 80%;
           display: -webkit-box;
           display: -webkit-flex;
           display: -moz-box;
@@ -160,7 +161,7 @@
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          padding-top: 20px;
+          padding-top: 10px;
 
           .login-form-btn {
             font-family: Montserrat-Bold;
@@ -170,9 +171,9 @@
             text-transform: uppercase;
 
             width: 100%;
-            height: 50px;
-            border-radius: 25px;
-            background: linear-gradient(#48c6ef 0%, #6f86d6 100%);
+            height: 40px;
+            border-radius: 5px;
+            background: linear-gradient(#48c6ef 0%, #6f86d6 60%);
             display: -webkit-box;
             display: -webkit-flex;
             display: -moz-box;
@@ -185,10 +186,9 @@
             -webkit-transition: all 0.4s;
             -o-transition: all 0.4s;
             -moz-transition: all 0.4s;
-            transition: all 0.4s;
-
-            &:hover {
-              background: #333333;
+            transition: all 0.5s;
+            &:hover{
+              background: linear-gradient(#48c6ef 0%, #6f86d6 100%);
             }
           }
         }
