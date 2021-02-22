@@ -14,8 +14,8 @@ export const routes = [
   {
     id: "3",
     icon: "shopping-cart",
-    name: "Posts",
-    route: "/post",
+    name: "Category",
+    route: "/category",
   },
   {
     id: "4",

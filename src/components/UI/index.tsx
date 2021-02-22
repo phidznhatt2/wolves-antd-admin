@@ -1,13 +1,3 @@
-import React, { ReactElement } from 'react'
-
-interface Props {
-    
-}
-
-export default function index({}: Props): ReactElement {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+export { default as DropOption } from "./DropOption";
+export { default as Loader } from "./Loader";
+export { default as Page } from "./Page";

@@ -11,19 +11,11 @@ import { createStore, applyMiddleware, compose } from "redux";
 import "normalize.css";
 import "antd/dist/antd.css";
 import "./styles/main.scss";
-import rootReducer from "./reducers";
-import { Login } from "./pages";
-import { PrivateRoute } from "./components";
-import PrimaryLayout from "./layouts/PrimaryLayout";
-import PageNotFound from "./pages/404";
+import configureStore from "redux/store";
+import { PrivateRoute } from "components";
+import { Login, PageNotFound } from "layouts";
 
-const composeEnhancers =
-  (window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] as typeof compose) || compose;
-
-export const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
-);
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
@@ -35,7 +27,7 @@ ReactDOM.render(
             "",
             "/dashboard",
             "/editor",
-            "/post",
+            "/category",
             "/request",
             "/user",
             "/chart",

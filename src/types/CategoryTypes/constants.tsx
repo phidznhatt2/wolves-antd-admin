@@ -1,7 +1,0 @@
-// action strings
-export const GET_CATEGORIES = "GET_CATEGORIES";
-export const GET_CATEGORYBYID = "GET_CATEGORYBYID";
-export const ADD_CATEGORY = "ADD_CATEGORY";
-export const EDIT_CATEGORY = "EDIT_CATEGORY";
-export const REMOVE_CATEGORY = "REMOVE_CATEGORY";
-export const GET_CATE_COLLECTION = "GET_CATE_COLLECTION";

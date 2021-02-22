@@ -8,8 +8,8 @@ export const getCategoryList = (params: any = null) => {
 };
 
 export const getCategoryById = (params: any) => {
-  const { categoryId } = params;
-  return api.get(`${endPoint}/${categoryId}`);
+  //const { categoryId } = params;
+  return api.get(`${endPoint}/${params}`);
 };
 
 export const postCategory = (params: any) => {

@@ -4,7 +4,15 @@ import Sider from "../../components/Layout/Sider";
 import { Layout, BackTop } from "antd";
 import styles from "./index.module.scss";
 import { Route } from "react-router-dom";
-import { Chart, Dashboard, Editor, Post, Request, User } from "src/pages";
+import {
+  Chart,
+  Dashboard,
+  Editor,
+  Post,
+  Request,
+  User,
+  Category,
+} from "layouts";
 
 const { Content, Footer } = Layout;
 
@@ -42,7 +50,7 @@ const PrimaryLayout: React.FunctionComponent<IPrimaryLayoutProps> = ({
           >
             <Route exact path={["", "/dashboard"]} component={Dashboard} />
             <Route path="/editor" component={Editor} />
-            <Route path="/post" component={Post} />
+            <Route path="/category" component={Category} />
             <Route path="/request" component={Request} />
             <Route path="/user" component={User} />
             <Route path="/chart" component={Chart} />
