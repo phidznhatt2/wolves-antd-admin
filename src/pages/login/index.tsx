@@ -2,19 +2,23 @@ import React from "react";
 import Tilt from "react-tilt";
 import { MailFilled, LockFilled } from "@ant-design/icons";
 import Logo from "../../images/login/logo-2.png";
-import { preProcessFile } from "typescript";
-import Password from "antd/lib/input/Password";
+import { startAuthLogin } from "../../actions/authes";
+import { connect } from "react-redux";
+import { Auth,UserAuth } from "../../types/Auth/Auth";
+import { useHistory } from "react-router-dom";
+
+
 
 
 interface ILoginProps { }
 
-const Login: React.FunctionComponent<ILoginProps> = (props) => {
+type Props = ILoginProps & LinkDispatchProps;
+
+const Login: React.FunctionComponent<Props> = (props) => {
 
   const [value, setValue] = React.useState({ email: "", password: "" });
   const [err, setErr] = React.useState({ email: "", password: "" });
-  const [valid, setValid] = React.useState({ emailValid: true, passwordValid: true, formvalid: false })
-  // const[password,setPassword]=React.useState("");
-
+  const [valid, setValid] = React.useState({ emailValid: false, passwordValid: false })
   const onChange = (e) => {
     let { name, value } = e.target;
     console.log(name)
@@ -45,7 +49,6 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
       default:
         break;
     }
-
     setErr(prevState => ({
       ...prevState, [name]: message
     }));
@@ -54,22 +57,11 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
     }))
 
   }
-  React.useEffect(() => {
-    FormValid();
-  },[value]);
-
-  const FormValid=()=>{
-    let { emailValid, passwordValid } = valid;
-    let form:boolean=emailValid&&passwordValid;
-    console.log(form);
-    setValid(prevState => ({
-      ...prevState, formvalid:form
-    }));
-}
-
+  let history:any = useHistory();
   const submit = (e) => {
     e.preventDefault();
-    console.log(value);
+    props.startAuthLogin(value,history);
+
   }
   return (
     <React.Fragment>
@@ -122,7 +114,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
                 </p>
               </div>
               <div className="container-login-form-btn">
-                <button disabled={!valid.formvalid} onClick={submit} className="login-form-btn">Login</button>    
+                <button disabled={!(valid.emailValid&&valid.passwordValid)} onClick={submit} className="login-form-btn">Login</button>    
               </div>
               <div className="wrap-login-form-forgot">
                 <span>Forgot </span>
@@ -137,4 +129,13 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
     </React.Fragment>
   );
 };
-export default Login;
+
+interface LinkDispatchProps {
+  startAuthLogin: (user:UserAuth,history:any) => void;
+}
+const mapDispatchToProps = (
+  ownProps: ILoginProps
+): LinkDispatchProps => ({
+  startAuthLogin,
+});
+export default connect(null, mapDispatchToProps)(Login);

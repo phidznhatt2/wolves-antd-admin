@@ -6,7 +6,8 @@ import { AppState } from "../../reducers";
 import { Dispatch, bindActionCreators } from "redux";
 import { AppActions } from "../../types/CategoryTypes/action";
 import { ThunkDispatch } from "redux-thunk";
-interface IDashboardProps {}
+interface IDashboardProps {
+}
 
 type Props = IDashboardProps & LinkStateProps & LinkDispatchProps;
 
