@@ -22,12 +22,12 @@ export const editCategory = (params: any) => {
 };
 
 export const deleteCategory = (params: any) => {
-  const { categoryId } = params;
-  const url = [endPoint, categoryId].join("/");
+  //const { categoryId } = params;
+  const url = [endPoint, params].join("/");
   return api.delete(url);
 };
 
 export const getCateCollection = (params: any) => {
-  const { categoryId } = params;
-  return api.get(`${endPoint}/${categoryId}/${endPoint_Collection}`);
+  //const { categoryId } = params;
+  return api.get(`${endPoint}/${params}/${endPoint_Collection}`);
 };

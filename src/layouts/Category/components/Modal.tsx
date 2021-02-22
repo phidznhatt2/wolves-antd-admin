@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, InputNumber, Radio, Modal, Cascader } from "antd";
+import { Form, Input, Modal, Button } from "antd";
 
 const FormItem = Form.Item;
 
@@ -14,44 +14,54 @@ const formItemLayout = {
 
 interface IModalProps {
   item: any;
+  loading: boolean;
   onOk: (data: any) => void;
+  onCancel: () => void;
 }
 
 const CategoryModal: React.FunctionComponent<IModalProps> = React.memo(
   (props) => {
-    //const formRef = React.useRef();
+    const formRef = React.useRef<any>();
 
     const handleOk = () => {
       const { item = {}, onOk } = props;
-
-      /* formRef.current.validateFields()
-      .then(values => {
-        const data = {
-          ...values,
-          key: item.key,
-        }
-        data.address = data.address.join(' ')
-        onOk(data)
-      })
-      .catch(errorInfo => {
-        console.log(errorInfo)
-      }) */
+      formRef.current
+        .validateFields()
+        .then((values: any) => {
+          const data = {
+            ...values,
+            id: item.id,
+          };
+          onOk(data);
+        })
+        .catch((errorInfo: any) => {
+          console.log(errorInfo);
+        });
     };
 
     const { item = {}, onOk, ...modalProps } = props;
-    console.log(item);
 
     return (
-      <Modal {...modalProps} onOk={handleOk}>
-        <p>{item.title}</p>
-        <p>{item.description}</p>
+      <Modal
+        {...modalProps}
+        footer={[
+          <Button key="cancel" onClick={props.onCancel}>
+            Cancel
+          </Button>,
+          <Button
+            key="Ok"
+            type="primary"
+            loading={props.loading}
+            onClick={handleOk}
+          >
+            Ok
+          </Button>,
+        ]}
+      >
         <Form
-          //ref={formRef}
+          ref={formRef}
           name="control-ref"
-          initialValues={{
-            title: item.title,
-            description: item.description,
-          }}
+          initialValues={{ ...item }}
           layout="horizontal"
         >
           <FormItem

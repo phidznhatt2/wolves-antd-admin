@@ -5,9 +5,16 @@ import styles from "./Loader.module.scss";
 interface LoaderProps {
   spinning: boolean;
   fullScreen?: boolean;
+  size?: number;
+  text?: boolean;
 }
 
-const Loader: React.FC<LoaderProps> = ({ spinning = false, fullScreen }) => {
+const Loader: React.FC<LoaderProps> = ({
+  spinning = false,
+  fullScreen,
+  size = 40,
+  text = true,
+}) => {
   return (
     <div
       className={classNames(styles.loader, {
@@ -16,8 +23,8 @@ const Loader: React.FC<LoaderProps> = ({ spinning = false, fullScreen }) => {
       })}
     >
       <div className={styles.warpper}>
-        <div className={styles.inner} />
-        <div className={styles.text}>LOADING</div>
+        <div className={styles.inner} style={{ width: size, height: size }} />
+        {text && <div className={styles.text}>LOADING</div>}
       </div>
     </div>
   );

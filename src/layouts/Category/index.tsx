@@ -8,9 +8,10 @@ import {
   removeCategory,
 } from "redux/actions/category";
 import { IAppState } from "redux/store/types";
-import { Page } from "components/UI";
+import { Page, Loader } from "components/UI";
 import { Filter, List, Modal } from "./components";
-
+import { Breadcrumb } from "antd";
+import { NavLink } from "react-router-dom";
 interface ICategory {
   category: any;
   getCategories: () => void;
@@ -41,6 +42,7 @@ const Category: React.FunctionComponent<ICategory> = (props) => {
       state.modalType === "create" ? `Create Category` : `Update Category`
     }`,
     centered: true,
+    loading: props.category.isActing,
     onOk: (data: any) => {
       if (state.modalType === "create") {
         props.addCategory(data);
@@ -63,6 +65,7 @@ const Category: React.FunctionComponent<ICategory> = (props) => {
   };
 
   const listProps = {
+    loading: props.category.isActing,
     dataSource: props.category.categoryList,
     showEditModal: (item: any) => {
       setState({ currentItem: item, modalVisible: true, modalType: "edit" });
@@ -73,36 +76,32 @@ const Category: React.FunctionComponent<ICategory> = (props) => {
     onDeleteItem: (id: string) => {
       props.removeCategory(id);
     },
-    rowSelection: {
-      selectedRowKeys,
-      onChange: (selected) => {
-        setSelectedRowKeys(selected);
-      },
-    },
   };
 
   return (
-    <Page inner>
-      <Filter {...filterProps} />
-      {/* {selectedRowKeys.length > 0 && (
-    <Row style={{ marginBottom: 24, textAlign: 'right', fontSize: 13 }}>
-      <Col>
-        {`Selected ${selectedRowKeys.length} items `}
-        <Popconfirm
-          title="Are you sure delete these items?"
-          placement="left"
-          onConfirm={this.handleDeleteItems}
-        >
-          <Button type="primary" style={{ marginLeft: 8 }}>
-            Remove
-          </Button>
-        </Popconfirm>
-      </Col>
-    </Row>
-  )} */}
-      <List {...listProps} />
-      <Modal {...modalProps} />
-    </Page>
+    <React.Fragment>
+      <Loader spinning={props.category.isLoading} fullScreen />
+      <div
+        style={{
+          height: "unset",
+          backgroundColor: "transparent",
+          padding: "24px",
+          marginBottom: 0,
+        }}
+      >
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <NavLink to={"/dashboard"}>Home</NavLink>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>Category</Breadcrumb.Item>
+        </Breadcrumb>
+      </div>
+      <Page inner>
+        <Filter {...filterProps} />
+        <List {...listProps} />
+        <Modal {...modalProps} />
+      </Page>
+    </React.Fragment>
   );
 };
 

@@ -5,15 +5,10 @@ const { Search } = Input;
 
 const ColProps = {
   xs: 24,
-  sm: 12,
+  sm: 8,
   style: {
     marginBottom: 16,
   },
-};
-
-const TwoColProps = {
-  ...ColProps,
-  xl: 96,
 };
 
 interface IFilterProps {
@@ -23,8 +18,6 @@ interface IFilterProps {
 const Filter: React.FunctionComponent<IFilterProps> = (props) => {
   const handleSubmit = () => {};
 
-  const handleReset = () => {};
-
   const onAdd = () => {
     props.showCreateModal();
   };
@@ -33,42 +26,25 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
     <Form
       //ref={this.formRef}
       name="control-ref"
-      //initialValues={{ name, address, createTime: initialCreateTime }}
     >
-      <Row gutter={24}>
-        <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-          <Form.Item name="title">
-            <Search placeholder="Search Title" onSearch={handleSubmit} />
-          </Form.Item>
+      <Row gutter={24} justify="space-between">
+        <Col {...ColProps} xl={{ span: 12 }} md={{ span: 8 }}>
+          <h2>Category</h2>
         </Col>
-        <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-          <Button type="ghost" onClick={onAdd}>
-            Create
-          </Button>
-        </Col>
-        {/* <Col
-          {...TwoColProps}
-          xl={{ span: 10 }}
-          md={{ span: 24 }}
-          sm={{ span: 24 }}
-        >
-          <Row align="middle" justify="space-between">
-            <div>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="margin-right"
-                onClick={handleSubmit}
-              >
-                Search
+        <Col xl={{ span: 12 }} md={{ span: 12 }}>
+          <Row gutter={24} justify="end">
+            <Col xs={{ span: 14 }} sm={{ span: 16 }} xl={{ span: 12 }}>
+              <Form.Item name="title">
+                <Search placeholder="Search Title" onSearch={handleSubmit} />
+              </Form.Item>
+            </Col>
+            <Col xs={{ span: 10 }} sm={{ span: 8 }} xl={{ span: 4 }}>
+              <Button type="ghost" onClick={onAdd}>
+                Create
               </Button>
-              <Button onClick={handleReset}>Reset</Button>
-            </div>
-            <Button type="ghost" onClick={onAdd}>
-              Create
-            </Button>
+            </Col>
           </Row>
-        </Col> */}
+        </Col>
       </Row>
     </Form>
   );

@@ -3,7 +3,11 @@ export interface IAppState {
 }
 
 export interface ICategoryState {
-  isLoading: boolean
-  categoryList: any
+  isLoading: boolean,
+  isAdding: boolean,
+  isEditing: boolean,
+  isRemoving: boolean,
+  isActing: boolean,
+  categoryList: any,
   categoryItem: object
 }
