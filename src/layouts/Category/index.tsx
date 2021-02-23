@@ -28,27 +28,33 @@ const Category: React.FunctionComponent<ICategory> = (props) => {
     modalType: "create",
   };
 
+  const [categoryList, setCategoryList] = React.useState<any>([]);
   const [state, setState] = React.useState(initialState);
-  const [selectedRowKeys, setSelectedRowKeys] = React.useState<any>([]);
 
   React.useEffect(() => {
     props.getCategories();
   }, []);
 
+  React.useEffect(() => {
+    setCategoryList(props.category.categoryList);
+  }, [props.category.categoryList]);
+
   const modalProps = {
     item: state.modalType === "create" ? {} : state.currentItem,
     visible: state.modalVisible,
+    destroyOnClose: true,
     title: `${
       state.modalType === "create" ? `Create Category` : `Update Category`
     }`,
     centered: true,
-    loading: props.category.isActing,
+    loading: props.category.isActing || props.category.isRefreshing,
     onOk: (data: any) => {
-      if (state.modalType === "create") {
-        props.addCategory(data);
-      } else {
-        props.editCategory(data);
-      }
+      // if (state.modalType === "create") {
+      //   props.addCategory(data);
+      // } else {
+      //   props.editCategory(data);
+      // }
+      props.addCategory(data);
     },
     onCancel: () => {
       setState(initialState);
@@ -62,14 +68,19 @@ const Category: React.FunctionComponent<ICategory> = (props) => {
     onCreateItem: (item: any) => {
       props.addCategory(item);
     },
+    onFilterChange: (value: string) => {
+      let categoryList = props.category.categoryList.filter(
+        (item: any) =>
+          item.title.toLowerCase().indexOf(value.toLowerCase()) > -1
+      );
+      setCategoryList(categoryList);
+    },
   };
 
   const listProps = {
-    loading: props.category.isActing,
-    dataSource: props.category.categoryList,
-    showEditModal: (item: any) => {
-      setState({ currentItem: item, modalVisible: true, modalType: "edit" });
-    },
+    loading: props.category.isActing || props.category.isRefreshing,
+    dataSource: categoryList,
+    pagination: props.category.pagination,
     onEditItem: (item: any) => {
       props.editCategory(item);
     },

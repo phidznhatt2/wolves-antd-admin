@@ -32,13 +32,17 @@ const refreshState = (dispatch) => {
     .then((res: any) => {
       const categoryList = res.data.data.map((item: any) => {
         return {
-          id: item.id,
+          key: item.id,
           title: item.attributes.title,
           description: item.attributes.description,
           createTime: item.meta.createdAt,
         };
       });
-      dispatch({ type: GET_CATEGORIES_SUCCESS, payload: categoryList });
+      const pagination = res.data.meta;
+      dispatch({
+        type: GET_CATEGORIES_SUCCESS,
+        payload: { categoryList, pagination },
+      });
     })
     .catch((err: any) =>
       dispatch({ type: GET_CATEGORIES_ERROR, payload: err })
@@ -53,13 +57,17 @@ const createActionGetCategories = (type: string) => {
       .then((res: any) => {
         const categoryList = res.data.data.map((item: any) => {
           return {
-            id: item.id,
+            key: item.id,
             title: item.attributes.title,
             description: item.attributes.description,
             createTime: item.meta.createdAt,
           };
         });
-        dispatch({ type: GET_CATEGORIES_SUCCESS, payload: categoryList });
+        const pagination = res.data.meta;
+        dispatch({
+          type: GET_CATEGORIES_SUCCESS,
+          payload: { categoryList, pagination },
+        });
       })
       .catch((err: any) =>
         dispatch({ type: GET_CATEGORIES_ERROR, payload: err })

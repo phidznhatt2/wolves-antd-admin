@@ -8,6 +8,8 @@ export interface ICategoryState {
   isEditing: boolean,
   isRemoving: boolean,
   isActing: boolean,
+  isRefreshing: boolean,
   categoryList: any,
+  pagination: object,
   categoryItem: object
 }

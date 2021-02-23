@@ -1,9 +1,12 @@
 import React from "react";
-import { Table, Modal } from "antd";
+import { Table, Modal, Button } from "antd";
 import { DropOption } from "components/UI";
 import styles from "./List.module.scss";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 interface IListProps {
+  loading: boolean;
+  pagination: any;
   onDeleteItem: (id: string) => void;
   showEditModal: (item: any) => void;
 }
@@ -18,9 +21,14 @@ const ListExample: React.FunctionComponent<IListProps> = React.memo((props) => {
       showEditModal(record);
     } else if (e.key === "2") {
       confirm({
-        title: "Are you sure delete this record?",
+        title: "Do you want to delete these items?",
+        icon: <ExclamationCircleOutlined />,
         onOk() {
           onDeleteItem(record.id);
+        },
+        onCancel() {},
+        okButtonProps: {
+          loading: props.loading,
         },
       });
     }
@@ -59,13 +67,15 @@ const ListExample: React.FunctionComponent<IListProps> = React.memo((props) => {
     },
   ];
 
+  const { count, totalPages, limit, skip } = props.pagination;
+
   return (
     <Table
       {...props}
-      /*       pagination={{
-        ...tableProps.pagination,
-        showTotal: (total) => i18n.t`Total ${total} Items`,
-      }} */
+      pagination={{
+        total: count,
+        showTotal: (total) => `Total ${total} Items`,
+      }}
       className={styles.table}
       bordered
       scroll={{ x: 1200 }}
